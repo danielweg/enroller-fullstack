@@ -6,9 +6,7 @@ import com.company.enroller.persistence.ParticipantService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RequestMethod;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.bind.annotation.*;
 
 import java.util.Collection;
 
@@ -27,5 +25,11 @@ public class MeetingRestController {
 
         Collection<Meeting> meetings = meetingService.getAll();
         return new ResponseEntity<Collection<Meeting>>(meetings, HttpStatus.OK);
+    }
+
+    @PostMapping
+    public ResponseEntity<?> saveNewMeeting(@RequestBody Meeting meeting) {
+        meetingService.addMeeting(meeting);
+        return new ResponseEntity<>(meeting, HttpStatus.CREATED);
     }
 }
